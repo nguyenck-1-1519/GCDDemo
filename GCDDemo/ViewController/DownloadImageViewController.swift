@@ -27,6 +27,7 @@ extension DownloadImageViewController: UITableViewDelegate, UITableViewDataSourc
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DownloadImageTableViewCell") as? DownloadImageTableViewCell else {
             return UITableViewCell()
         }
+        cell.index = indexPath.row
         cell.configCell(withTitle: "video \(indexPath.row + 1)",
             urlString: GlobalSemaphore.shared.arrayVideo[indexPath.row])
         return cell

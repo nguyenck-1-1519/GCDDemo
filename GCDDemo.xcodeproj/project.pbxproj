@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2B7333BFEB769206563C6FD4 /* Pods_GCDDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4431A36F19EFA310AB19338D /* Pods_GCDDemo.framework */; };
 		6192DEC02251C9D200B5DC21 /* GlobalSemaphore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6192DEBF2251C9D200B5DC21 /* GlobalSemaphore.swift */; };
+		6192DEC22251FC3000B5DC21 /* DownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6192DEC12251FC3000B5DC21 /* DownloadManager.swift */; };
 		61F1984C224CB78300B0197C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F1984B224CB78300B0197C /* AppDelegate.swift */; };
 		61F1984E224CB78300B0197C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F1984D224CB78300B0197C /* ViewController.swift */; };
 		61F19851224CB78300B0197C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61F1984F224CB78300B0197C /* Main.storyboard */; };
@@ -19,14 +20,13 @@
 		61F19863224DFFCC00B0197C /* DownloadImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F19862224DFFCC00B0197C /* DownloadImageViewController.swift */; };
 		61F19865224E005600B0197C /* ViewImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F19864224E005600B0197C /* ViewImageTableViewCell.swift */; };
 		61F19867224E006A00B0197C /* DownloadImageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F19866224E006A00B0197C /* DownloadImageTableViewCell.swift */; };
-		61F1986C224E099E00B0197C /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F1986B224E099E00B0197C /* ApiService.swift */; };
-		61F1986E224E10EF00B0197C /* ImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61F1986D224E10EF00B0197C /* ImageView+Ext.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		027DB05201D3C7D8F6DC4A0D /* Pods-GCDDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCDDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-GCDDemo/Pods-GCDDemo.release.xcconfig"; sourceTree = "<group>"; };
 		4431A36F19EFA310AB19338D /* Pods_GCDDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GCDDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6192DEBF2251C9D200B5DC21 /* GlobalSemaphore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlobalSemaphore.swift; sourceTree = "<group>"; };
+		6192DEC12251FC3000B5DC21 /* DownloadManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadManager.swift; sourceTree = "<group>"; };
 		61F19848224CB78300B0197C /* GCDDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GCDDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		61F1984B224CB78300B0197C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		61F1984D224CB78300B0197C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,8 +39,6 @@
 		61F19862224DFFCC00B0197C /* DownloadImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImageViewController.swift; sourceTree = "<group>"; };
 		61F19864224E005600B0197C /* ViewImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewImageTableViewCell.swift; sourceTree = "<group>"; };
 		61F19866224E006A00B0197C /* DownloadImageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImageTableViewCell.swift; sourceTree = "<group>"; };
-		61F1986B224E099E00B0197C /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
-		61F1986D224E10EF00B0197C /* ImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageView+Ext.swift"; sourceTree = "<group>"; };
 		E8F9C74794E89319B5FD8062 /* Pods-GCDDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GCDDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GCDDemo/Pods-GCDDemo.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -120,9 +118,8 @@
 		61F1986A224E098600B0197C /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				61F1986B224E099E00B0197C /* ApiService.swift */,
-				61F1986D224E10EF00B0197C /* ImageView+Ext.swift */,
 				6192DEBF2251C9D200B5DC21 /* GlobalSemaphore.swift */,
+				6192DEC12251FC3000B5DC21 /* DownloadManager.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -268,13 +265,12 @@
 			files = (
 				61F19867224E006A00B0197C /* DownloadImageTableViewCell.swift in Sources */,
 				61F1984E224CB78300B0197C /* ViewController.swift in Sources */,
-				61F1986E224E10EF00B0197C /* ImageView+Ext.swift in Sources */,
 				61F19861224DFDE900B0197C /* ViewImageViewController.swift in Sources */,
 				61F1984C224CB78300B0197C /* AppDelegate.swift in Sources */,
 				61F19854224CB78300B0197C /* GCDDemo.xcdatamodeld in Sources */,
 				61F19865224E005600B0197C /* ViewImageTableViewCell.swift in Sources */,
-				61F1986C224E099E00B0197C /* ApiService.swift in Sources */,
 				61F19863224DFFCC00B0197C /* DownloadImageViewController.swift in Sources */,
+				6192DEC22251FC3000B5DC21 /* DownloadManager.swift in Sources */,
 				6192DEC02251C9D200B5DC21 /* GlobalSemaphore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

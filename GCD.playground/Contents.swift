@@ -1,9 +1,7 @@
 import UIKit
-
-var str = "Hello, playground"
 import Foundation
-import PlaygroundSupport
 
+// Dispatch Semaphore example
 let higherPriority = DispatchQueue.global(qos: .userInitiated)
 let lowerPriority = DispatchQueue.global(qos: .utility)
 let firstExecution = DispatchQueue.global(qos: .userInteractive)
@@ -29,3 +27,6 @@ asyncPrint(queue: firstExecution, symbol: "🔴")
 asyncPrint(queue: secondExecution, symbol: "🔵")
 asyncPrint(queue: thirdExecution, symbol: "🐨")
 asyncPrint(queue: fourExecution, symbol: "💖")
+
+// Dispatch Queue Example
+
