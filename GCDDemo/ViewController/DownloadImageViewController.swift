@@ -20,15 +20,15 @@ class DownloadImageViewController: UIViewController {
 
 extension DownloadImageViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 21
+        return GlobalSemaphore.shared.arrayVideo.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "DownloadImageTableViewCell") as? DownloadImageTableViewCell else {
             return UITableViewCell()
         }
-        cell.configCell(withTitle: "image \(indexPath.row + 1)",
-            urlString: "http://192.168.15.71:8800/imageTest/image\(indexPath.row + 1).jpg")
+        cell.configCell(withTitle: "video \(indexPath.row + 1)",
+            urlString: GlobalSemaphore.shared.arrayVideo[indexPath.row])
         return cell
     }
 }

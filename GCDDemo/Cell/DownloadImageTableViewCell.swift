@@ -31,6 +31,7 @@ class DownloadImageTableViewCell: UITableViewCell {
 
     @IBAction func onDownloadButtonClicked(_ sender: Any) {
         let currentTitle = contentLabel.text ?? ""
+        contentLabel.text = "\(currentTitle) - (0%)"
         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
             GlobalSemaphore.shared.semaphore.wait()
             let downloadTask = ImageDownloader.default
@@ -40,8 +41,9 @@ class DownloadImageTableViewCell: UITableViewCell {
             downloadTask.downloadImage(with: url, progressBlock: { (current, total) in
                 let progress: CGFloat = CGFloat(current) / CGFloat(total)
                 self?.contentLabel.text = "\(currentTitle) - (\(progress * 100)%)"
+            }, completionHandler: { (_) in
+                GlobalSemaphore.shared.semaphore.signal()
             })
-            GlobalSemaphore.shared.semaphore.signal()
         }
     }
 }
