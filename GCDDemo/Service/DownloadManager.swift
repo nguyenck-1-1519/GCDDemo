@@ -13,19 +13,27 @@ class DownloadManager {
     static let shared = DownloadManager()
     var tasks = [String : VideoDownloadTask]()
 
-    func addDownloadTask(at taskIndex: Int) {
+    func addDownloadTask(at taskIndex: Int, cell: DownloadImageTableViewCell) {
         if getDownloadTask(at: taskIndex) == nil {
-            tasks[String(taskIndex)] = VideoDownloadTask()
+            tasks[String(taskIndex)] = VideoDownloadTask(taskIndex: taskIndex)
         }
-        startDownloadTask(at: taskIndex)
+        startDownloadTask(at: taskIndex, cell: cell)
     }
 
-    func startDownloadTask(at taskIndex: Int) {
+    func startDownloadTask(at taskIndex: Int, cell: DownloadImageTableViewCell) {
+        tasks[String(taskIndex)]?.delegate = cell
         tasks[String(taskIndex)]?.startDownloadTask()
     }
 
+    func setDelegateForDownloadingTask(_ cell: DownloadImageTableViewCell) {
+        guard let indexTask = cell.index else { return }
+        tasks[String(indexTask)]?.delegate = cell
+    }
+    
+    
     func removeDownloadTask(at taskIndex: Int) {
         let key = String(taskIndex)
+        tasks[String(taskIndex)]?.cancelDownload()
         tasks.removeValue(forKey: key)
     }
 

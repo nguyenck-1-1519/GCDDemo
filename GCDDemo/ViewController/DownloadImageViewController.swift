@@ -16,11 +16,6 @@ class DownloadImageViewController: UIViewController {
         super.viewDidLoad()
     }
 
-//    override func viewDidDisappear(_ animated: Bool) {
-//        super.viewDidDisappear(animated)
-//        DownloadManager.shared.removeAllTask()
-//    }
-
     deinit {
         DownloadManager.shared.removeAllTask()
     }

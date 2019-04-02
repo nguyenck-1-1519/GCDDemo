@@ -28,6 +28,10 @@ class VideoDownloadTask {
     var downloadStatus: DownloadTaskStatus = .none
     var taskIndex: Int = 0
     var downloadTask: DownloadTask?
+    
+    init(taskIndex: Int) {
+        self.taskIndex = taskIndex
+    }
 
     func startDownloadTask() {
         downloadStatus = .pending
@@ -50,8 +54,12 @@ class VideoDownloadTask {
     }
 
     func cancelDownload() {
-        downloadTask?.cancel()
-        GlobalSemaphore.shared.semaphore.signal()
+        print(downloadTask)
+        guard let downloadTask = downloadTask else {
+            GlobalSemaphore.shared.semaphore.signal()
+            return
+        }
+        downloadTask.cancel()
     }
 
 }

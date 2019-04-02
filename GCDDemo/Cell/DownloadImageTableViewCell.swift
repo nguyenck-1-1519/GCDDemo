@@ -28,32 +28,28 @@ class DownloadImageTableViewCell: UITableViewCell {
     func configCell(withTitle title: String) {
         originalTitle = title
         contentLabel.text = title
+        
         guard let index = index else { return }
-        var downloadTask: VideoDownloadTask?
         if DownloadManager.shared.checkTaskIsInQueue(at: index) {
-            downloadTask = DownloadManager.shared.getDownloadTask(at: index)
             downloadButton.isEnabled = false
-            downloadTask?.startDownloadTask()
-        } else {
-            downloadTask = VideoDownloadTask()
-            downloadTask?.taskIndex = index
+            DownloadManager.shared.setDelegateForDownloadingTask(self)
         }
-        downloadTask?.delegate = self
-        guard let downloadTask1 = downloadTask else { return }
-        switch downloadTask1.downloadStatus {
-        case .downloaded:
-            contentLabel.text = "\(title) - (100.0%)"
-        case .pending:
-            contentLabel.text = "\(title) - (0.0%)"
-        default:
-            break
+        if let statusTask = DownloadManager.shared.getDownloadTask(at: index)?.downloadStatus {
+            switch statusTask {
+            case .downloaded:
+                contentLabel.text = "\(title) - (100.0%)"
+            case .pending:
+                contentLabel.text = "\(title) - (0.0%)"
+            default:
+                break
+            }
         }
     }
 
     @IBAction func onDownloadButtonClicked(_ sender: Any) {
-        contentLabel.text = "\(originalTitle ?? "") - (0%)"
+        contentLabel.text = "\(originalTitle ?? "") - (0.0%)"
         downloadButton.isEnabled = false
-        DownloadManager.shared.addDownloadTask(at: index ?? 0)
+        DownloadManager.shared.addDownloadTask(at: index ?? 0, cell: self)
     }
 }
 
