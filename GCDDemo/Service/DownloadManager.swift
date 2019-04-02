@@ -9,15 +9,38 @@
 import Foundation
 import Kingfisher
 
-enum DownloadTaskStatus {
-    case none
-    case downloaded
-    case downloading
-    case pending
-}
-
 class DownloadManager {
     static let shared = DownloadManager()
-    var downloadTasks: [DownloadTaskStatus] = Array(repeating: .none, count: 9)
-    
+    var tasks = [String : VideoDownloadTask]()
+
+    func addDownloadTask(at taskIndex: Int) {
+        if getDownloadTask(at: taskIndex) == nil {
+            tasks[String(taskIndex)] = VideoDownloadTask()
+        }
+        startDownloadTask(at: taskIndex)
+    }
+
+    func startDownloadTask(at taskIndex: Int) {
+        tasks[String(taskIndex)]?.startDownloadTask()
+    }
+
+    func removeDownloadTask(at taskIndex: Int) {
+        let key = String(taskIndex)
+        tasks.removeValue(forKey: key)
+    }
+
+    func checkTaskIsInQueue(at taskIndex: Int) -> Bool {
+        return tasks[String(taskIndex)] != nil
+    }
+
+    func getDownloadTask(at taskIndex: Int) -> VideoDownloadTask? {
+        return tasks[String(taskIndex)]
+    }
+
+    func removeAllTask() {
+        for task in tasks {
+            task.value.cancelDownload()
+        }
+        tasks.removeAll()
+    }
 }
