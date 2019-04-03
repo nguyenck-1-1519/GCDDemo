@@ -9,15 +9,46 @@
 import Foundation
 import Kingfisher
 
-enum DownloadTaskStatus {
-    case none
-    case downloaded
-    case downloading
-    case pending
-}
-
 class DownloadManager {
     static let shared = DownloadManager()
-    var downloadTasks: [DownloadTaskStatus] = Array(repeating: .none, count: 9)
+    var tasks = [String : VideoDownloadTask]()
+
+    func addDownloadTask(at taskIndex: Int, cell: DownloadImageTableViewCell) {
+        if getDownloadTask(at: taskIndex) == nil {
+            tasks[String(taskIndex)] = VideoDownloadTask(taskIndex: taskIndex)
+        }
+        startDownloadTask(at: taskIndex, cell: cell)
+    }
+
+    func startDownloadTask(at taskIndex: Int, cell: DownloadImageTableViewCell) {
+        tasks[String(taskIndex)]?.delegate = cell
+        tasks[String(taskIndex)]?.startDownloadTask()
+    }
+
+    func setDelegateForDownloadingTask(_ cell: DownloadImageTableViewCell) {
+        guard let indexTask = cell.index else { return }
+        tasks[String(indexTask)]?.delegate = cell
+    }
     
+    
+    func removeDownloadTask(at taskIndex: Int) {
+        let key = String(taskIndex)
+        tasks[String(taskIndex)]?.cancelDownload()
+        tasks.removeValue(forKey: key)
+    }
+
+    func checkTaskIsInQueue(at taskIndex: Int) -> Bool {
+        return tasks[String(taskIndex)] != nil
+    }
+
+    func getDownloadTask(at taskIndex: Int) -> VideoDownloadTask? {
+        return tasks[String(taskIndex)]
+    }
+
+    func removeAllTask() {
+        for task in tasks {
+            task.value.cancelDownload()
+        }
+        tasks.removeAll()
+    }
 }

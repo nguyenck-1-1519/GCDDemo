@@ -16,6 +16,10 @@ class DownloadImageViewController: UIViewController {
         super.viewDidLoad()
     }
 
+    deinit {
+        DownloadManager.shared.removeAllTask()
+    }
+
 }
 
 extension DownloadImageViewController: UITableViewDelegate, UITableViewDataSource {
@@ -28,8 +32,7 @@ extension DownloadImageViewController: UITableViewDelegate, UITableViewDataSourc
             return UITableViewCell()
         }
         cell.index = indexPath.row
-        cell.configCell(withTitle: "video \(indexPath.row + 1)",
-            urlString: GlobalSemaphore.shared.arrayVideo[indexPath.row])
+        cell.configCell(withTitle: "video \(indexPath.row + 1)")
         return cell
     }
 }
